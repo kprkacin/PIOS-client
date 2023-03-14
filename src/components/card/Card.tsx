@@ -1,19 +1,19 @@
 import {
-  Card,
-  Image,
-  Text,
-  Group,
-  Badge,
-  createStyles,
-  Center,
-  Button,
-  rem,
-  Rating,
-  Stack,
-  Grid,
-  Box,
   ActionIcon,
+  Badge,
+  Box,
+  Button,
+  Card,
+  Center,
+  createStyles,
   getStylesRef,
+  Grid,
+  Group,
+  Image,
+  Rating,
+  rem,
+  Stack,
+  Text,
 } from '@mantine/core';
 import {
   IconGasStation,
@@ -23,6 +23,7 @@ import {
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
+
 import { Product } from '../../services/products/types';
 
 const useStyles = createStyles((theme) => ({
