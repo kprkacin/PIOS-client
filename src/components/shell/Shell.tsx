@@ -1,7 +1,9 @@
 import { AppShell } from '@mantine/core';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
+import { Sidebar } from '../sidebar';
 
 const pageTransition = {
   type: 'spring',
@@ -15,6 +17,7 @@ const Shell: React.FC = () => {
   return (
     <AppShell
       padding="md"
+      navbar={<Sidebar />}
       // header={<Header />}
       styles={(theme) => ({
         main: {
@@ -22,14 +25,7 @@ const Shell: React.FC = () => {
         },
       })}
     >
-      {/* <motion.div
-        key={pathname}
-        transition={pageTransition}
-        // initial={{ x: '20%' }}
-        // animate={{ x: 0 }}
-      > */}
       <Outlet />
-      {/* </motion.div> */}
     </AppShell>
   );
 };
