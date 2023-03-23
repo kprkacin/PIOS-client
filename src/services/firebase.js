@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDeGL9Ba126xbAH9MpHdZ3ulmfWIqogpdo',
@@ -14,6 +15,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+
+export const getAllProducts = async () => {
+  const productsRef = collection(db, 'Products');
+  const productsSnapshot = await getDocs(productsRef);
+  return productsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+};
 
 export const auth = getAuth(app);
 export default app;
