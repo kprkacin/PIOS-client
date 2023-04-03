@@ -1,37 +1,33 @@
 import { createApiCall } from '../api';
+import {
+  getAllProducts as getAllProductsFB,
+  getProductById as getProductByIdFB,
+  getProductsByCategory as getProductsByCategoryFB,
+} from '../firebase.js';
 import { transformProduct } from './transformations';
 import { Category, Product } from './types';
 
 const limit = '?limit=100';
 
 export const getAllProducts = async (): Promise<Product[]> => {
-  const resp = await createApiCall({
-    baseURL: 'https://dummyjson.com',
-    url: `/products${limit}`,
-    method: 'GET',
-  })();
+  const resp = await getAllProductsFB();
+  console.log(resp, 'test');
 
-  return resp.data.products.map(transformProduct);
+  return resp.map(transformProduct);
 };
 
 export const getProductsByCategory = async (category: Category): Promise<Product[]> => {
-  const resp = await createApiCall({
-    baseURL: 'https://dummyjson.com',
-    url: `${category.toLowerCase()}/products${limit}`,
-    method: 'GET',
-  })();
+  console.log(category, 'test2');
+  const resp = await getProductsByCategoryFB(category.toLowerCase());
+  console.log(resp, 'response');
 
-  return resp.data.products.map(transformProduct);
+  return resp.map(transformProduct);
 };
 
-export const getProductById = async (id: number): Promise<Product> => {
-  const resp = await createApiCall({
-    baseURL: 'https://dummyjson.com',
-    url: `/products/${id}`,
-    method: 'GET',
-  })();
+export const getProductById = async (id: string): Promise<Product> => {
+  const resp = getProductByIdFB(id);
 
-  return transformProduct(resp.data);
+  return transformProduct(resp);
 };
 
 export const getProductsBySearch = async (search: string): Promise<Product[]> => {

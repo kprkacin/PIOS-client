@@ -25,6 +25,8 @@ import {
 } from '@tabler/icons-react';
 
 import { Product } from '../../services/products/types';
+import { useCartContext } from '../../services/products/context';
+import { memo } from 'react';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -91,6 +93,7 @@ type Props = {
 };
 const ProductCard: React.FC<Props> = ({ product }) => {
   const { classes } = useStyles();
+  const { addProductToCart } = useCartContext();
   const features = mockdata.map((feature) => (
     <Center key={feature.label}>
       <feature.icon size="1.05rem" className={classes.icon} stroke={1.5} />
@@ -177,20 +180,25 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       <Card.Section className={classes.section}>
         <Group position="center" spacing={30}>
           <Group>
+            <Badge variant="outline" color="red">
+              {product.discountPercentage}% off
+            </Badge>
             <Text fz="xl" fw={700} sx={{ lineHeight: 1 }}>
               ${product.price}
             </Text>
-            <Badge variant="outline" color="red">
-              {' '}
-              {product.discountPercentage}% off
-            </Badge>
           </Group>
 
-          {/* <Button radius="md">Add to cart</Button> */}
+          <Button
+            onClick={() => addProductToCart(product, 1)}
+            radius="xl"
+            variant="outline"
+          >
+            Add to cart
+          </Button>
         </Group>
       </Card.Section>
     </Card>
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

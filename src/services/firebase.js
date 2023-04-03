@@ -1,6 +1,14 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs, getFirestore, query, where, doc, getDoc} from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDeGL9Ba126xbAH9MpHdZ3ulmfWIqogpdo',
@@ -25,7 +33,7 @@ export const getAllProducts = async () => {
 
 export const getProductsByCategory = async (category) => {
   const productsRef = collection(db, 'Products');
-  const q = query(productsRef, where("category", "==", category))
+  const q = query(productsRef, where('category', '==', category));
   const productsSnapshot = await getDocs(q);
 
   return productsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -33,8 +41,9 @@ export const getProductsByCategory = async (category) => {
 
 export const getProductById = async (productId) => {
   const productsRef = collection(db, 'Products');
-  const q = query(productsRef, where("id", "==", productId));
+  const q = query(productsRef, where('id', '==', productId));
   const productsSnapshot = await getDocs(q);
+  console.log('getProductById', productsRef, q, productsSnapshot.size);
 
   if (productsSnapshot.size === 0) {
     throw new Error(`Product with ID ${productId} does not exist.`);

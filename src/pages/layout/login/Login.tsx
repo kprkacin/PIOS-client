@@ -50,8 +50,8 @@ const Login = (props: PaperProps) => {
       signInWithEmailAndPassword(auth, form.values.email, form.values.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          // setAccessToken(user.email || '');
-          console.log('logined');
+          setAccessToken(user.email || '');
+          console.log('logined', userCredential);
           navigate('/dashboard', { replace: true });
           showNotification({
             message: `Welcome ${user.email}`,

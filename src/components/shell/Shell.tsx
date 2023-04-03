@@ -4,6 +4,7 @@ import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { Sidebar } from '../sidebar';
+import { CartProvider } from '../../services/products/context';
 
 const pageTransition = {
   type: 'spring',
@@ -15,18 +16,20 @@ const Shell: React.FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <AppShell
-      padding="md"
-      navbar={<Sidebar />}
-      // header={<Header />}
-      styles={(theme) => ({
-        main: {
-          overflow: 'hidden',
-        },
-      })}
-    >
-      <Outlet />
-    </AppShell>
+    <CartProvider>
+      <AppShell
+        padding="md"
+        navbar={<Sidebar />}
+        // header={<Header />}
+        styles={(theme) => ({
+          main: {
+            overflow: 'hidden',
+          },
+        })}
+      >
+        <Outlet />
+      </AppShell>
+    </CartProvider>
   );
 };
 export default Shell;

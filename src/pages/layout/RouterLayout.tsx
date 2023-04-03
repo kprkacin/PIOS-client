@@ -7,6 +7,8 @@ import App from '../../App';
 import { RequireAuth } from '../../components/auth/RequireAuth';
 import Dashboard from '../dashboard/Dashboard';
 import Login from './login/Login';
+import CategoryPage from '../products/CategoryPage';
+import DetailsPage from '../products/DetailsPage';
 
 const RouterLayout = () => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -33,6 +35,8 @@ const RouterLayout = () => {
         <Route path="/projects/:id/:tabValue?" element={<ProjectDetailsPage />} />
         */}
             <Route path="*" element={<Dashboard />} />
+            <Route path="/categories/:category" element={<CategoryPage />} />
+            <Route path="/products/:id" element={<DetailsPage />} />
           </Route>
 
           <Route path="/login" element={<Login />} />

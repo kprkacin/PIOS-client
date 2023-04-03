@@ -48,3 +48,8 @@ export interface Product {
   thumbnail: string;
   images: string[];
 }
+
+export interface CartProduct {
+  product: Product;
+  quantity: number;
+}
