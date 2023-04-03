@@ -32,14 +32,16 @@ export const getProductsByCategory = async (category) => {
 };
 
 export const getProductById = async (productId) => {
-  const productRef = doc(db, 'Products', productId);
-  const productDoc = await getDoc(productRef);
+  const productsRef = collection(db, 'Products');
+  const q = query(productsRef, where("id", "==", productId));
+  const productsSnapshot = await getDocs(q);
 
-  if (!productDoc.exists()) {
-    throw new Error(`Product with ID '${productId}' does not exist.`);
+  if (productsSnapshot.size === 0) {
+    throw new Error(`Product with ID ${productId} does not exist.`);
   }
 
-  return { id: productDoc.id, ...productDoc.data() };
+  const productData = productsSnapshot.docs[0].data();
+  return { id: productsSnapshot.docs[0].id, ...productData };
 };
 
 export const auth = getAuth(app);
