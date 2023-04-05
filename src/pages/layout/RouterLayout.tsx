@@ -6,9 +6,9 @@ import { Route, Routes } from 'react-router-dom';
 import App from '../../App';
 import { RequireAuth } from '../../components/auth/RequireAuth';
 import Dashboard from '../dashboard/Dashboard';
-import Login from './login/Login';
 import CategoryPage from '../products/CategoryPage';
 import DetailsPage from '../products/DetailsPage';
+import Login from './login/Login';
 
 const RouterLayout = () => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');

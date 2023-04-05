@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation, useMatch, useParams } from 'react-router-dom';
 
-import ProductsPage from './ProductsPage';
 import { Category } from '../../services/products/types';
+import ProductsPage from './ProductsPage';
 
 const CategoryPage = () => {
   const location = useLocation();

@@ -14,6 +14,7 @@ import {
   Header,
   HoverCard,
   Image,
+  Indicator,
   NavLink,
   rem,
   ScrollArea,
@@ -48,15 +49,15 @@ import {
   IconShirt,
   IconShoe,
   IconShoppingBag,
+  IconShoppingCart,
   IconSunglasses,
   IconWoman,
-  IconShoppingCart,
 } from '@tabler/icons-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Category } from '../../services/products/types';
 import { getAccessToken } from '../../services/helpers';
 import { useCartContext } from '../../services/products/context';
+import { Category } from '../../services/products/types';
 import CartCard from '../card/CartCard';
 
 const useStyles = createStyles((theme) => ({
@@ -386,9 +387,12 @@ export default function Sidebar() {
                 </Group>
               )}
             </Group>
-            <ActionIcon variant="transparent " onClick={toggleCart}>
-              <IconShoppingCart size="1.5rem" />
-            </ActionIcon>
+
+            <Indicator label={products.length} disabled={!products.length} size="15">
+              <ActionIcon variant="transparent " onClick={toggleCart}>
+                <IconShoppingCart size="1.5rem" />
+              </ActionIcon>
+            </Indicator>
             <Burger
               opened={drawerOpened}
               size="1.5rem"

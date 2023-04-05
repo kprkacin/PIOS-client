@@ -23,10 +23,10 @@ import {
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
-
-import { Product } from '../../services/products/types';
-import { useCartContext } from '../../services/products/context';
 import { memo } from 'react';
+
+import { useCartContext } from '../../services/products/context';
+import { Product } from '../../services/products/types';
 
 const useStyles = createStyles((theme) => ({
   card: {

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
-import { CartProduct, Product } from './types';
+
 import { replacePropertyInArray } from '../helpers';
+import { CartProduct, Product } from './types';
 
 export const CartContext = createContext<{
   products: CartProduct[];

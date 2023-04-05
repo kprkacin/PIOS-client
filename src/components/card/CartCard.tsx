@@ -20,14 +20,14 @@ import {
   IconGauge,
   IconHeart,
   IconManualGearbox,
-  IconSettings,
-  IconPlus,
   IconMinus,
+  IconPlus,
+  IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
 
-import { CartProduct, Product } from '../../services/products/types';
 import { useCartContext } from '../../services/products/context';
+import { CartProduct, Product } from '../../services/products/types';
 
 const useStyles = createStyles((theme) => ({
   card: {

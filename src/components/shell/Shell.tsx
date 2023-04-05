@@ -3,8 +3,8 @@ import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { Sidebar } from '../sidebar';
 import { CartProvider } from '../../services/products/context';
+import { Sidebar } from '../sidebar';
 
 const pageTransition = {
   type: 'spring',

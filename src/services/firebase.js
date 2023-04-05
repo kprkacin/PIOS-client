@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import {
   collection,
+  doc,
+  getDoc,
   getDocs,
   getFirestore,
   query,
   where,
-  doc,
-  getDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {

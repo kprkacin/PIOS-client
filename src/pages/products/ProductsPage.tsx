@@ -1,13 +1,13 @@
 import { Box, Container, Loader, TextInput, Title } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
+import { keys } from '@mantine/utils';
+import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useMemo, useState } from 'react';
 
 import { ProductCard } from '../../components/card/Card';
 import AsymmetricalGrid from '../../components/grids/AsymmetricalGrid';
 import { getAllProducts, getProductsByCategory } from '../../services/products/api';
 import { Category, Product } from '../../services/products/types';
-import { IconSearch } from '@tabler/icons-react';
-import { keys } from '@mantine/utils';
-import { useDebouncedValue } from '@mantine/hooks';
 
 type Props = {
   category?: any;
