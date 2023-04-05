@@ -28,7 +28,7 @@ export const db = getFirestore(app);
 export const getAllProducts = async () => {
   const productsRef = collection(db, 'Products');
   const productsSnapshot = await getDocs(productsRef);
-  return productsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return productsSnapshot.docs.map((doc) => ({ docId: doc.id, ...doc.data() }));
 };
 
 export const getProductsByCategory = async (category) => {
@@ -36,7 +36,7 @@ export const getProductsByCategory = async (category) => {
   const q = query(productsRef, where('category', '==', category));
   const productsSnapshot = await getDocs(q);
 
-  return productsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return productsSnapshot.docs.map((doc) => ({ docId: doc.id, ...doc.data() }));
 };
 
 export const getProductById = async (productId) => {
@@ -50,8 +50,20 @@ export const getProductById = async (productId) => {
   }
 
   const productData = productsSnapshot.docs[0].data();
-  return { id: productsSnapshot.docs[0].id, ...productData };
+  return { docId: productsSnapshot.docs[0].id, ...productData };
+};
+
+export const getProductByDocId = async (productId) => {
+  const productRef = doc(db, 'Products', productId);
+  const productDoc = await getDoc(productRef);
+
+  if (!productDoc.exists()) {
+    throw new Error(`Product with ID '${productId}' does not exist.`);
+  }
+
+  return { docId: productDoc.id, ...productDoc.data() };
 };
 
 export const auth = getAuth(app);
 export default app;
+
