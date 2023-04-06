@@ -9,6 +9,7 @@ import Dashboard from '../dashboard/Dashboard';
 import CategoryPage from '../products/CategoryPage';
 import DetailsPage from '../products/DetailsPage';
 import Login from './login/Login';
+import CheckoutPage from '../products/CheckoutPage';
 
 const RouterLayout = () => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -37,6 +38,7 @@ const RouterLayout = () => {
             <Route path="*" element={<Dashboard />} />
             <Route path="/categories/:category" element={<CategoryPage />} />
             <Route path="/products/:id" element={<DetailsPage />} />
+            <Route path="/products/checkout" element={<CheckoutPage />} />
           </Route>
 
           <Route path="/login" element={<Login />} />

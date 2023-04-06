@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Alert,
   Anchor,
   Badge,
   Box,
@@ -36,6 +37,7 @@ import {
   IconChevronDown,
   IconCode,
   IconCoin,
+  IconCurrencyDollar,
   IconDeviceLaptop,
   IconDeviceMobile,
   IconDeviceWatch,
@@ -416,6 +418,19 @@ export default function Sidebar() {
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
+          <Alert
+            mx={20}
+            icon={<IconCurrencyDollar size="1rem" />}
+            title="Price"
+            radius="md"
+          >
+            <Text align="end" pr={25} fz={60} fw="650">
+              $
+              {products.reduce((acc, cartItem) => {
+                return acc + cartItem.product.price * cartItem.quantity;
+              }, 0)}
+            </Text>
+          </Alert>
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Stack align="center">
@@ -428,7 +443,17 @@ export default function Sidebar() {
               <CartCard key={cartItem.product.id} cartProduct={cartItem} />
             ))}
           </Stack>
-          <Button mt={30} disabled={products.length === 0} radius="xs" w="100%" size="lg">
+          <Button
+            mt={30}
+            disabled={products.length === 0}
+            onClick={() => {
+              navigate('/products/checkout');
+              closeCart();
+            }}
+            radius="xs"
+            w="100%"
+            size="lg"
+          >
             Go to checkout
           </Button>
         </ScrollArea>
