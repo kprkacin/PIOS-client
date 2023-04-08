@@ -143,6 +143,15 @@ export const addProductToWishlist = async (productId) => {
     userDoc = userSnapshot.docs[0];
   }
 
+  const wishlistRef = collection(db, 'Users', userDoc.id, 'Wishlist');
+  const wishlistItemQuery = query(wishlistRef, where('id', '==', Number(productId)));
+  const wishlistItemSnapshot = await getDocs(wishlistItemQuery);
+
+  if (!wishlistItemSnapshot.empty) {
+    console.log("Product already exists in the wishlist.");
+    return;
+  }
+
   const wishlistItemRef = doc(db, 'Users', userDoc.id, 'Wishlist', productId);
 
   try {
