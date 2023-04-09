@@ -36,7 +36,7 @@ export const db = getFirestore(app);
 export const getAllProducts = async () => {
   const productsRef = collection(db, 'Products');
   const productsSnapshot = await getDocs(productsRef);
-  return productsSnapshot.docs.map((doc) => ({ docId: doc.id, ...doc.data() }));
+  return productsSnapshot.docs.map((doc) => ({ ...doc.data() }));
 };
 
 // Function to get products from the Products collection by category
@@ -45,7 +45,7 @@ export const getProductsByCategory = async (category) => {
   const q = query(productsRef, where('category', '==', category));
   const productsSnapshot = await getDocs(q);
 
-  return productsSnapshot.docs.map((doc) => ({ docId: doc.id, ...doc.data() }));
+  return productsSnapshot.docs.map((doc) => ({ ...doc.data() }));
 };
 
 // Function to get a specific product from the Products collection by ID
@@ -60,7 +60,7 @@ export const getProductById = async (productId) => {
   }
 
   const productData = productsSnapshot.docs[0].data();
-  return { docId: productsSnapshot.docs[0].id, ...productData };
+  return { ...productData };
 };
 
 // Function to get all wishlist items for the current user
@@ -96,7 +96,6 @@ export const getAllWishlistItems = async () => {
     // Iterate through wishlist items and add them to the wishlistItems array
     wishlistSnapshot.docs.forEach((wishlistItem) => {
       wishlistItems.push({
-        docId: wishlistItem.id,
         ...wishlistItem.data()
       });
     });
