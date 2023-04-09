@@ -1,3 +1,4 @@
+// Import the required Firebase modules
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import {
@@ -13,6 +14,7 @@ import {
   deleteDoc
 } from 'firebase/firestore';
 
+// Firebase configuration object
 const firebaseConfig = {
   apiKey: 'AIzaSyDeGL9Ba126xbAH9MpHdZ3ulmfWIqogpdo',
   authDomain: 'pios-webshop.firebaseapp.com',
@@ -26,14 +28,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Get a Firestore instance
 export const db = getFirestore(app);
 
+// Function to get all products from the Products collection
 export const getAllProducts = async () => {
   const productsRef = collection(db, 'Products');
   const productsSnapshot = await getDocs(productsRef);
   return productsSnapshot.docs.map((doc) => ({ docId: doc.id, ...doc.data() }));
 };
 
+// Function to get products from the Products collection by category
 export const getProductsByCategory = async (category) => {
   const productsRef = collection(db, 'Products');
   const q = query(productsRef, where('category', '==', category));
@@ -42,6 +48,7 @@ export const getProductsByCategory = async (category) => {
   return productsSnapshot.docs.map((doc) => ({ docId: doc.id, ...doc.data() }));
 };
 
+// Function to get a specific product from the Products collection by ID
 export const getProductById = async (productId) => {
   const productsRef = collection(db, 'Products');
   const q = query(productsRef, where('id', '==', Number(productId)));
@@ -56,7 +63,10 @@ export const getProductById = async (productId) => {
   return { docId: productsSnapshot.docs[0].id, ...productData };
 };
 
+// Function to get all wishlist items for the current user
 export const getAllWishlistItems = async () => {
+
+  // Getting info of authenticated user
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -67,6 +77,7 @@ export const getAllWishlistItems = async () => {
 
   const email = user.email;
 
+  // Query to find the user in Users collection with the matching email
   const usersRef = collection(db, 'Users');
   const q = query(usersRef, where('email', '==', email));
   const userSnapshot = await getDocs(q);
@@ -82,6 +93,7 @@ export const getAllWishlistItems = async () => {
     const wishlistRef = collection(db, 'Users', userDoc.id, 'Wishlist');
     const wishlistSnapshot = await getDocs(wishlistRef);
 
+    // Iterate through wishlist items and add them to the wishlistItems array
     wishlistSnapshot.docs.forEach((wishlistItem) => {
       wishlistItems.push({
         docId: wishlistItem.id,
@@ -93,7 +105,10 @@ export const getAllWishlistItems = async () => {
   return wishlistItems;
 };
 
+// Function to add a product to the user's wishlist
 export const addProductToWishlist = async (productId) => {
+
+  // Getting info of authenticated user
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -131,7 +146,7 @@ export const addProductToWishlist = async (productId) => {
   if (userSnapshot.empty) {
     console.log("No user found with this email. Creating a new user...");
 
-    // Create a new user with the specified email
+    // Adding new user to Users collection - if one doesn't exist
     try {
       userDoc = await addDoc(usersRef, { email });
       console.log("New user created successfully.");
@@ -142,7 +157,8 @@ export const addProductToWishlist = async (productId) => {
   } else {
     userDoc = userSnapshot.docs[0];
   }
-
+  
+  // Checking if product already exist in user's wishlist
   const wishlistRef = collection(db, 'Users', userDoc.id, 'Wishlist');
   const wishlistItemQuery = query(wishlistRef, where('id', '==', Number(productId)));
   const wishlistItemSnapshot = await getDocs(wishlistItemQuery);
@@ -154,6 +170,7 @@ export const addProductToWishlist = async (productId) => {
 
   const wishlistItemRef = doc(db, 'Users', userDoc.id, 'Wishlist', productId);
 
+  // Adding product data to user's wishlist
   try {
     await setDoc(wishlistItemRef, productData);
     console.log("Product added to wishlist successfully.");
@@ -162,7 +179,10 @@ export const addProductToWishlist = async (productId) => {
   }
 };
 
+// Function to remove a product from the user's wishlist
 export const removeProductFromWishlist = async (productId) => {
+
+  // Getting info of authenticated user
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -202,6 +222,7 @@ export const removeProductFromWishlist = async (productId) => {
 
   const wishlistItemDoc = wishlistSnapshot.docs[0];
 
+  // Removing product form user's wishlist
   try {
     await deleteDoc(wishlistItemDoc.ref);
     console.log("Product removed from wishlist successfully.");
@@ -210,5 +231,8 @@ export const removeProductFromWishlist = async (productId) => {
   }
 };
 
+// Export the auth object
 export const auth = getAuth(app);
+
+// Export the Firebase app instance as default
 export default app;
