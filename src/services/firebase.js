@@ -167,7 +167,7 @@ export const addProductToWishlist = async (productId) => {
     return;
   }
 
-  const wishlistItemRef = doc(db, 'Users', userDoc.id, 'Wishlist', productId);
+  const wishlistItemRef = doc(db, 'Users', userDoc.id, 'Wishlist', productId.toString());
 
   // Adding product data to user's wishlist
   try {
@@ -221,7 +221,7 @@ export const removeProductFromWishlist = async (productId) => {
 
   const wishlistItemDoc = wishlistSnapshot.docs[0];
 
-  // Removing product form user's wishlist
+  // Removing product from user's wishlist
   try {
     await deleteDoc(wishlistItemDoc.ref);
     console.log("Product removed from wishlist successfully.");
