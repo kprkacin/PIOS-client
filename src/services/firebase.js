@@ -83,7 +83,7 @@ export const getAllWishlistItems = async () => {
   const userSnapshot = await getDocs(q);
 
   if (userSnapshot.empty) {
-    console.error("No user found with this email.");
+    console.error("No user or data found, add product to wishlist first.");
     return;
   }
 
