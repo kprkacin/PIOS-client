@@ -27,6 +27,7 @@ import { memo } from 'react';
 
 import { useCartContext } from '../../services/products/context';
 import { Product } from '../../services/products/types';
+import { addProductToWishlist } from '../../services/products/api';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -93,7 +94,7 @@ type Props = {
 };
 const ProductCard: React.FC<Props> = ({ product }) => {
   const { classes } = useStyles();
-  const { addProductToCart } = useCartContext();
+  const { addProductToCart, addToWishlist } = useCartContext();
   const features = mockdata.map((feature) => (
     <Center key={feature.label}>
       <feature.icon size="1.05rem" className={classes.icon} stroke={1.5} />
@@ -111,9 +112,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
           radius="xl"
           variant="filled"
           color="gray"
-          onClick={() => {
-            console.log('wishlist clicked');
-          }}
+          onClick={() => addToWishlist(product.id)}
         >
           <IconHeart size={25} />
         </ActionIcon>{' '}
@@ -162,7 +161,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
           </Grid.Col>
           <Grid.Col xs={12} md={6}>
             <Group noWrap position="left">
-              <Rating value={product.rating} />
+              <Rating readOnly value={product.rating} />
             </Group>
           </Grid.Col>
           <Grid.Col xs={12} md={6}>

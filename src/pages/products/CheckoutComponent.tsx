@@ -42,9 +42,9 @@ const CheckoutComponent = () => {
   const { products } = useCartContext();
 
   return (
-    <form id="payment-form" onSubmit={() => {}}>
+    <form id="payment-form" className="stripe-form" onSubmit={() => {}}>
       <PaymentElement id="payment-element" options={{ layout: 'tabs' }} />
-      <button disabled={true} id="submit">
+      <button className="stripe-button" disabled={true} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}
         </span>

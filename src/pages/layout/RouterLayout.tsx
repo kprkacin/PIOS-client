@@ -10,6 +10,7 @@ import CategoryPage from '../products/CategoryPage';
 import DetailsPage from '../products/DetailsPage';
 import Login from './login/Login';
 import CheckoutPage from '../products/CheckoutPage';
+import { WishlistPage } from '../products/WishlistPage';
 
 const RouterLayout = () => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -19,7 +20,7 @@ const RouterLayout = () => {
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        <Notifications />
+        <Notifications position="top-right" />
         <Routes>
           <Route
             element={
@@ -39,6 +40,7 @@ const RouterLayout = () => {
             <Route path="/categories/:category" element={<CategoryPage />} />
             <Route path="/products/:id" element={<DetailsPage />} />
             <Route path="/products/checkout" element={<CheckoutPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
           </Route>
 
           <Route path="/login" element={<Login />} />
